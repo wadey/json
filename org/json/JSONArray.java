@@ -27,10 +27,7 @@ SOFTWARE.
 import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 /**
  * A JSONArray is an ordered sequence of values. Its external text form is a
@@ -80,20 +77,20 @@ import java.util.Map;
  * @author JSON.org
  * @version 2008-09-18
  */
-public class JSONArray {
+public class JSONArray implements List<Object>{
 
 
     /**
      * The arrayList where the JSONArray's properties are kept.
      */
-    private ArrayList myArrayList;
+    private ArrayList<Object> myArrayList;
 
 
     /**
      * Construct an empty JSONArray.
      */
     public JSONArray() {
-        this.myArrayList = new ArrayList();
+        this.myArrayList = new ArrayList<Object>();
     }
 
     /**
@@ -228,10 +225,10 @@ public class JSONArray {
      * @return An object value.
      * @throws JSONException If there is no value for the index.
      */
-    public Object get(int index) throws JSONException {
+    public Object get(int index) {
         Object o = opt(index);
         if (o == null) {
-            throw new JSONException("JSONArray[" + index + "] not found.");
+            throw new RuntimeException(new JSONException("JSONArray[" + index + "] not found."));
         }
         return o;
     }
@@ -931,4 +928,97 @@ public class JSONArray {
            throw new JSONException(e);
         }
     }
+
+   public boolean add(Object o) {
+      put(o);
+      return true;
+   }
+
+   public void add(int index, Object element) {
+      try {
+         put(index, element);
+      } catch (JSONException e) {
+         throw new RuntimeException(e);
+      }
+   }
+
+   public boolean addAll(Collection<? extends Object> c) {
+      return myArrayList.addAll(c);
+   }
+
+   public boolean addAll(int index, Collection<? extends Object> c) {
+      return myArrayList.addAll(index, c);
+   }
+
+   public void clear() {
+      myArrayList.clear();
+   }
+
+   public boolean contains(Object o) {
+      return myArrayList.contains(o);
+   }
+
+   public boolean containsAll(Collection<?> c) {
+      return myArrayList.containsAll(c);
+   }
+
+   public int indexOf(Object o) {
+      return myArrayList.indexOf(0);
+   }
+
+   public boolean isEmpty() {
+      return myArrayList.isEmpty();
+   }
+
+   public Iterator<Object> iterator() {
+      return myArrayList.iterator();
+   }
+
+   public int lastIndexOf(Object o) {
+      return myArrayList.lastIndexOf(o);
+   }
+
+   public ListIterator<Object> listIterator() {
+      return myArrayList.listIterator();
+   }
+
+   public ListIterator<Object> listIterator(int index) {
+      return myArrayList.listIterator(index);
+   }
+
+   public boolean remove(Object o) {
+      return myArrayList.remove(o);
+   }
+
+   public Object remove(int index) {
+      return myArrayList.remove(index);
+   }
+
+   public boolean removeAll(Collection<?> c) {
+      return myArrayList.removeAll(c);
+   }
+
+   public boolean retainAll(Collection<?> c) {
+      return myArrayList.retainAll(c);
+   }
+
+   public Object set(int index, Object element) {
+      return myArrayList.set(index, element);
+   }
+
+   public int size() {
+      return myArrayList.size();
+   }
+
+   public List<Object> subList(int fromIndex, int toIndex) {
+      return myArrayList.subList(fromIndex, toIndex);
+   }
+
+   public Object[] toArray() {
+      return myArrayList.toArray();
+   }
+
+   public <T> T[] toArray(T[] a) {
+      return myArrayList.toArray(a);
+   }
 }
