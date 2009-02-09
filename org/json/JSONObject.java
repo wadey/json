@@ -28,11 +28,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * A JSONObject is an unordered collection of name/value pairs. Its
@@ -85,7 +81,7 @@ import java.util.TreeSet;
  * @author JSON.org
  * @version 2008-09-18
  */
-public class JSONObject {
+public class JSONObject implements Map<String, Object> {
 
     /**
      * JSONObject.NULL is equivalent to the value that JavaScript calls null,
@@ -1047,17 +1043,21 @@ public class JSONObject {
      * @throws JSONException If the value is non-finite number
      *  or if the key is null.
      */
-    public JSONObject put(String key, Object value) throws JSONException {
-        if (key == null) {
-            throw new JSONException("Null key.");
-        }
-        if (value != null) {
-            testValidity(value);
-            this.map.put(key, value);
-        } else {
-            remove(key);
-        }
-        return this;
+    public JSONObject put(String key, Object value) {
+        try {
+         if (key == null) {
+               throw new JSONException("Null key.");
+           }
+           if (value != null) {
+               testValidity(value);
+               this.map.put(key, value);
+           } else {
+               remove(key);
+           }
+           return this;
+      } catch (JSONException e) {
+         throw new RuntimeException(e);
+      }
     }
 
 
@@ -1547,4 +1547,69 @@ public class JSONObject {
             throw new JSONException(e);
         }
      }
+
+
+   public void clear() {
+      map.clear();
+   }
+
+
+   public boolean containsKey(Object key) {
+      if (key instanceof String) {
+         return has((String) key);
+      } else {
+         return false;
+      }
+   }
+
+
+   public boolean containsValue(Object value) {
+      return map.containsValue(value);
+   }
+
+
+   public Set<java.util.Map.Entry<String, Object>> entrySet() {
+      return map.entrySet();
+   }
+
+
+   public Object get(Object key) {
+      try {
+         return get((String) key);
+      } catch (JSONException e) {
+         throw new RuntimeException(e);
+      }
+   }
+
+
+   public boolean isEmpty() {
+      return map.isEmpty();
+   }
+
+
+   public Set<String> keySet() {
+      return map.keySet();
+   }
+
+
+   public void putAll(Map<? extends String, ? extends Object> t) {
+      for (Entry<? extends String, ? extends Object> entry : t.entrySet()) {
+         put(entry.getKey(), entry.getValue());
+      }
+   }
+
+
+   public Object remove(Object key) {
+      return map.remove(key);
+   }
+
+
+   public int size() {
+      return map.size();
+   }
+
+
+   public Collection<Object> values() {
+      return map.values();
+   }
 }
