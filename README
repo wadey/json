@@ -1,3 +1,5 @@
+NOTE: This is a work in progress.
+
 This is a fork of the json.org java library that will make the following changes:
 
    JSONObject implements Map<String, Object>
