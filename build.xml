@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="json" default="jar" basedir=".">
 
+    <property name="src.dir" location="${basedir}/src"/>
+    <property name="build.dir" location="${basedir}/build"/>
+    <property name="dist.dir" location="${basedir}/dist"/>
+
     <target name="compile">
-        <javac srcdir="${basedir}"/>
+        <mkdir dir="build"/>
+        <javac srcdir="${src.dir}" destdir="${build.dir}" />
     </target>
 
-    <target name="jar" depends="compile">
-        <jar jarfile="json.jar">
-            <fileset dir="${basedir}">
-                <include name="org/**/*.class"/>
+    <target name="jar" depends="compile" description="Generate a json.jar file in ${dist.dir}">
+        <mkdir dir="dist"/>
+        <jar jarfile="${dist.dir}/json.jar">
+            <fileset dir="${build.dir}">
+                <include name="**/*.class"/>
             </fileset>
         </jar>
+    </target>
+
+    <target name="clean" description="clean the project by removing build/dist directories">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
     </target>
 
 </project>
