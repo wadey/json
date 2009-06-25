@@ -654,7 +654,7 @@ public class JSONArray implements List<Object>{
      * @return      this.
      */
     public JSONArray put(Map value) {
-        put(new JSONObject(value));
+        this.myArrayList.add(new JSONObject(value));//(new JSONObject(value));
         return this;
     }
 
@@ -1022,11 +1022,12 @@ public class JSONArray implements List<Object>{
       return myArrayList.toArray(a);
    }
 
+   /*
    public boolean equals(Object obj) {
        return myArrayList.equals(obj);
    }
 
    public int hashCode() {
        return myArrayList.hashCode();
-   }
+   } */
 }
