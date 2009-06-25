@@ -1021,4 +1021,12 @@ public class JSONArray implements List<Object>{
    public <T> T[] toArray(T[] a) {
       return myArrayList.toArray(a);
    }
+
+   public boolean equals(Object obj) {
+       return myArrayList.equals(obj);
+   }
+
+   public int hashCode() {
+       return myArrayList.hashCode();
+   }
 }

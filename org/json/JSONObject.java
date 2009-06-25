@@ -126,6 +126,15 @@ public class JSONObject implements Map<String, Object> {
      */
     private Map map;
 
+    public boolean equals(Object obj){
+        //return this.hashCode() == obj.hashCode();
+        return map.equals(obj);
+    }
+
+    public int hashCode() {
+        return map.hashCode();      
+    }
+
 
     /**
      * It is sometimes more convenient and less ambiguous to have a
@@ -1612,4 +1621,32 @@ public class JSONObject implements Map<String, Object> {
    public Collection<Object> values() {
       return map.values();
    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+        JSONObject obj1 = new JSONObject();
+        JSONObject obj2 = new JSONObject();
+        try {
+            obj1.put("three", 3);
+            obj1.put("two", 2);
+            obj1.put("four", 4);
+            obj1.put("one", 1);
+
+            obj2.put("three", 3);
+            obj2.put("two", 2);
+            obj2.put("four", 4);
+            obj2.put("one", 1);
+
+            System.out.println("obj1: " + obj1 + "  hash: " + obj1.hashCode());
+            System.out.println("obj2: " + obj2 + "  hash: " + obj2.hashCode());
+
+            System.out.println("equals? " + obj1.equals(obj2));
+            System.out.println("equals? " + obj2.equals(obj1));
+        } catch (JSONException ex) {
+            System.err.println("JSON exception " + ex);
+        }
+    }
 }
