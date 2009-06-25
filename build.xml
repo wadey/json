@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="json" default="jar" basedir=".">
+
+    <target name="compile">
+        <javac srcdir="${basedir}"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar jarfile="json.jar">
+            <fileset dir="${basedir}">
+                <include name="org/**/*.class"/>
+            </fileset>
+        </jar>
+    </target>
+
+</project>
